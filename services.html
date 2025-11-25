@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Scalefy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CORE VARIABLES (Inherited) --- */
+        :root {
+            --font-heading: 'Instrument Serif', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --color-bg-cream: #FDFBF7;
+            --color-bg-white: #FFFFFF;
+            --color-bg-dark: #111111;
+            --color-bg-accent: #EAE6DE;
+            
+            --color-text-main: #1A1A1A;
+            --color-text-muted: #666666;
+            --color-border: #E0E0E0;
+            
+            --border-radius-lg: 24px;
+            --border-radius-sm: 8px;
+            
+            --container-width: 1240px;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text-main);
+            background-color: var(--color-bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--color-text-main);
+        }
+
+        p { color: var(--color-text-muted); font-size: 1.05rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* --- UTILITIES --- */
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 2rem; }
+        .section-padding { padding: 8rem 0; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-4 { margin-bottom: 4rem; }
+        .text-center { text-align: center; }
+
+        .btn {
+            display: inline-flex; align-items: center; padding: 0.8rem 1.8rem;
+            border-radius: 4px; font-size: 0.9rem; font-weight: 500;
+            letter-spacing: 0.5px; cursor: pointer; transition: var(--transition);
+            text-transform: uppercase;
+        }
+        .btn-dark { background-color: var(--color-text-main); color: #fff; }
+        .btn-dark:hover { background-color: #333; transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1px solid var(--color-text-main); color: var(--color-text-main); }
+        .btn-outline:hover { background: var(--color-text-main); color: #fff; }
+
+        .super-title {
+            text-transform: uppercase; font-size: 0.8rem; 
+            letter-spacing: 1px; display: block; margin-bottom: 1rem;
+        }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(253, 251, 247, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); padding: 1.2rem 0;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 600; letter-spacing: -1px; }
+        .nav-menu { display: flex; gap: 2.5rem; }
+        .nav-link { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; position: relative; }
+        .nav-link:hover { color: #000; }
+
+        /* --- SERVICES SPECIFIC CSS --- */
+
+        /* 1. Hero */
+        .services-hero {
+            padding-top: 12rem; padding-bottom: 8rem;
+            background-color: var(--color-bg-cream);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .hero-row { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: end; }
+        .hero-headline { font-size: 4.5rem; line-height: 1; margin-bottom: 1.5rem; }
+
+        /* 2. Detailed Service List */
+        .full-service-section { padding: 8rem 0; }
+        
+        .service-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+            margin-bottom: 8rem;
+            align-items: center;
+        }
+        /* Alternate direction for rows */
+        .service-row.reverse { direction: rtl; }
+        .service-row.reverse .service-info { direction: ltr; } /* fix text direction inside */
+        
+        .service-img-wrapper {
+            position: relative; height: 500px; border-radius: var(--border-radius-lg); overflow: hidden;
+        }
+        .service-info h3 { font-size: 3rem; margin-bottom: 1.5rem; }
+        .service-info p { margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        .capability-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+            margin-top: 2rem; border-top: 1px solid #eee; padding-top: 2rem;
+        }
+        .cap-item { font-size: 0.95rem; display: flex; align-items: center; gap: 10px; color: var(--color-text-main); }
+        .cap-item::before {
+            content: ''; display: inline-block; width: 6px; height: 6px;
+            background: var(--color-text-main); border-radius: 50%;
+        }
+
+        /* 3. Engagement Models (Cards) */
+        .engagement-section {
+            background-color: var(--color-bg-accent);
+            padding: 8rem 0;
+            position: relative;
+        }
+        /* Top curve effect */
+        .curve-top {
+            position: absolute; top: -50px; left: 0; width: 100%; height: 50px;
+            background: var(--color-bg-accent);
+            clip-path: ellipse(60% 100% at 50% 100%);
+            transform: rotate(180deg);
+        }
+
+        .cards-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+        }
+        .engage-card {
+            background: #fff; padding: 4rem; border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .engage-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .engage-icon { font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-text-main); }
+        .engage-title { font-size: 2rem; margin-bottom: 1rem; }
+        
+        /* 4. FAQ */
+        .faq-section { padding: 8rem 0; max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #ddd; }
+        .faq-header {
+            padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-q { font-family: var(--font-heading); font-size: 1.8rem; }
+        .faq-icon { transition: var(--transition); }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-inner { padding-bottom: 1.5rem; color: var(--color-text-muted); }
+
+        /* --- FOOTER (Identical) --- */
+        footer {
+            background-color: #fff; padding-top: 6rem; position: relative; overflow: hidden; border-top: 1px solid #eee;
+        }
+        .footer-bg-text {
+            position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-heading); font-size: 15rem; color: rgba(0,0,0,0.02);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+            position: relative; z-index: 1; margin-bottom: 4rem;
+        }
+        .footer-col h4 {
+            font-family: var(--font-body); font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 1.5rem; font-weight: 600;
+        }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: var(--color-text-muted); font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--color-text-main); }
+        .credits { text-align: center; padding: 2rem; border-top: 1px solid #eee; color: #999; font-size: 0.9rem; position: relative; z-index: 1; }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .hero-row { grid-template-columns: 1fr; }
+            .service-row, .service-row.reverse { grid-template-columns: 1fr; direction: ltr; gap: 3rem; margin-bottom: 6rem; }
+            .service-row.reverse .service-info { direction: ltr; }
+            .service-img-wrapper { height: 300px; order: -1; } /* Image on top */
+            .cards-grid { grid-template-columns: 1fr; }
+            .engage-card { padding: 2rem; }
+            .faq-q { font-size: 1.4rem; }
+            .nav-menu { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">SCALEFY</a>
+            <nav class="nav-menu desktop-only">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="#" class="nav-link" style="border-bottom: 1px solid currentColor;">Services</a>
+                <a href="#" class="nav-link">Blog</a>
+            </nav>
+            <a href="#" class="btn btn-dark">Get Started</a>
+        </div>
+    </header>
+
+    <section class="services-hero">
+        <div class="container hero-row">
+            <div class="hero-left">
+                <span class="super-title">Expertise</span>
+                <h1 class="hero-headline">Capabilities<br>Engineered for<br>Impact.</h1>
+            </div>
+            <div class="hero-right">
+                <p>We don't offer a menu of disjointed tactics. We provide integrated architectural systems designed to scale revenue, brand equity, and operational efficiency simultaneously.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="full-service-section">
+        <div class="container">
+            
+            <div class="service-row">
+                <div class="service-info">
+                    <span class="super-title">01 / Strategy</span>
+                    <h3>Brand Architecture</h3>
+                    <p>A brand is more than a logo—it's a belief system. We clarify your positioning, define your voice, and structure your portfolio for maximum market penetration.</p>
+                    <div class="capability-list">
+                        <div class="cap-item">Market Positioning</div>
+                        <div class="cap-item">Visual Identity</div>
+                        <div class="cap-item">Voice & Messaging</div>
+                        <div class="cap-item">Stakeholder Interviews</div>
+                        <div class="cap-item">Brand Guidelines</div>
+                        <div class="cap-item">Competitive Audits</div>
+                    </div>
+                </div>
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Brand Strategy">
+                </div>
+            </div>
+
+            <div class="service-row reverse">
+                <div class="service-info">
+                    <span class="super-title">02 / Digital</span>
+                    <h3>Digital Ecosystems</h3>
+                    <p>Your digital presence should be your hardest working asset. We build high-performance websites and applications that convert curiosity into commerce.</p>
+                    <div class="capability-list">
+                        <div class="cap-item">Web Design & Dev</div>
+                        <div class="cap-item">UX/UI Architecture</div>
+                        <div class="cap-item">App Development</div>
+                        <div class="cap-item">Headless CMS</div>
+                        <div class="cap-item">E-commerce Solutions</div>
+                        <div class="cap-item">Technical SEO</div>
+                    </div>
+                </div>
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Digital Design">
+                </div>
+            </div>
+
+            <div class="service-row">
+                <div class="service-info">
+                    <span class="super-title">03 / Growth</span>
+                    <h3>Performance Marketing</h3>
+                    <p>Growth is a science. We utilize data-driven campaigns to acquire customers at the lowest cost while maximizing lifetime value.</p>
+                    <div class="capability-list">
+                        <div class="cap-item">Paid Search (PPC)</div>
+                        <div class="cap-item">Social Advertising</div>
+                        <div class="cap-item">Email Automation</div>
+                        <div class="cap-item">CRO / A/B Testing</div>
+                        <div class="cap-item">Analytics & Reporting</div>
+                        <div class="cap-item">Media Planning</div>
+                    </div>
+                </div>
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Marketing Data">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="engagement-section">
+        <div class="curve-top"></div>
+        <div class="container">
+            <div class="text-center mb-4">
+                <span class="super-title">How We Work</span>
+                <h2 style="font-size: 3rem; margin-top: 1rem;">Engagement Models</h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="engage-card">
+                    <i class="fa-solid fa-infinity engage-icon"></i>
+                    <h3 class="engage-title">Growth Partner</h3>
+                    <p class="mb-2">For businesses seeking a long-term strategic ally. We become your outsourced growth department, handling strategy, execution, and optimization.</p>
+                    <ul style="margin-bottom: 2rem;">
+                        <li class="cap-item">Dedicated Team Pod</li>
+                        <li class="cap-item">Quarterly Roadmaps</li>
+                        <li class="cap-item">Priority Execution</li>
+                    </ul>
+                    <a href="#" class="btn btn-dark">Inquire about Retainers</a>
+                </div>
+
+                <div class="engage-card">
+                    <i class="fa-solid fa-flag-checkered engage-icon"></i>
+                    <h3 class="engage-title">Project Sprint</h3>
+                    <p class="mb-2">Defined scope, clear timeline, and specific deliverables. Perfect for rebrands, website launches, or specific campaign pushes.</p>
+                    <ul style="margin-bottom: 2rem;">
+                        <li class="cap-item">Fixed Scope & Budget</li>
+                        <li class="cap-item">Intensive Sprint Model</li>
+                        <li class="cap-item">Clear Deliverables</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Start a Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <span class="super-title text-center">Questions</span>
+        <h2 class="text-center mb-4" style="font-size: 2.5rem;">Common Queries</h2>
+
+        <div class="faq-wrapper">
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-q">Do you work with startups?</span>
+                    <i class="fa-solid fa-plus faq-icon"></i>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-inner">
+                        Yes, we specialize in Series A+ startups looking to structure their growth. We also have a specific accelerator program for seed-stage companies.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-q">How long does a rebrand take?</span>
+                    <i class="fa-solid fa-plus faq-icon"></i>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-inner">
+                        A typical comprehensive brand architecture project takes between 8 to 12 weeks, depending on the number of stakeholders and complexity of the portfolio.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-q">What is your minimum engagement?</span>
+                    <i class="fa-solid fa-plus faq-icon"></i>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-inner">
+                        For project work, our minimum engagement typically starts at $15k. For retainers, we generally start at $5k/month to ensure we can dedicate the necessary resources.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bg-text">SCALEFY</div>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="display:block; margin-bottom: 1rem;">SCALEFY</a>
+                <p style="font-size: 0.9rem; max-width: 200px;">Building better businesses for a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Menu</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <ul class="footer-links">
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li>hello@scalefy.com</li>
+                    <li>+1 (555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="credits">
+            &copy; 2025 Scalefy Template. Designed by Lefa Mofokeng.
+        </div>
+    </footer>
+
+    <script>
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.8rem 0';
+                header.style.background = 'rgba(253, 251, 247, 0.95)';
+            } else {
+                header.style.padding = '1.2rem 0';
+                header.style.background = 'rgba(253, 251, 247, 0.8)';
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFaq(header) {
+            const item = header.parentElement;
+            const body = item.querySelector('.faq-body');
+            
+            // Close others
+            document.querySelectorAll('.faq-item').forEach(other => {
+                if(other !== item) {
+                    other.classList.remove('active');
+                    other.querySelector('.faq-body').style.maxHeight = 0;
+                }
+            });
+
+            // Toggle current
+            item.classList.toggle('active');
+            if (item.classList.contains('active')) {
+                body.style.maxHeight = body.scrollHeight + "px";
+            } else {
+                body.style.maxHeight = 0;
+            }
+        }
+    </script>
+</body>
+</html>

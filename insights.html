@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - Scalefy Blog</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CORE VARIABLES (Inherited) --- */
+        :root {
+            --font-heading: 'Instrument Serif', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --color-bg-cream: #FDFBF7;
+            --color-bg-white: #FFFFFF;
+            --color-bg-dark: #111111;
+            --color-bg-accent: #EAE6DE;
+            
+            --color-text-main: #1A1A1A;
+            --color-text-muted: #666666;
+            --color-border: #E0E0E0;
+            
+            --border-radius-lg: 24px;
+            --border-radius-sm: 8px;
+            
+            --container-width: 1240px;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text-main);
+            background-color: var(--color-bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--color-text-main);
+        }
+
+        p { color: var(--color-text-muted); font-size: 1.05rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* --- UTILITIES --- */
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 2rem; }
+        .section-padding { padding: 8rem 0; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-4 { margin-bottom: 4rem; }
+        .text-center { text-align: center; }
+
+        .btn {
+            display: inline-flex; align-items: center; padding: 0.8rem 1.8rem;
+            border-radius: 4px; font-size: 0.9rem; font-weight: 500;
+            letter-spacing: 0.5px; cursor: pointer; transition: var(--transition);
+            text-transform: uppercase;
+        }
+        .btn-dark { background-color: var(--color-text-main); color: #fff; }
+        .btn-dark:hover { background-color: #333; transform: translateY(-2px); }
+
+        .super-title {
+            text-transform: uppercase; font-size: 0.8rem; 
+            letter-spacing: 1px; display: block; margin-bottom: 1rem;
+        }
+        .text-link {
+            display: inline-flex; align-items: center; gap: 8px; font-weight: 500;
+            font-size: 0.95rem; color: var(--color-text-main);
+        }
+        .text-link:hover { opacity: 0.8; }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(253, 251, 247, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); padding: 1.2rem 0;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 600; letter-spacing: -1px; }
+        .nav-menu { display: flex; gap: 2.5rem; }
+        .nav-link { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; position: relative; }
+        .nav-link:hover { color: #000; }
+
+        /* --- BLOG SPECIFIC CSS --- */
+
+        /* 1. Hero / Title */
+        .blog-hero {
+            padding-top: 12rem; padding-bottom: 4rem;
+            background-color: var(--color-bg-cream);
+        }
+        .blog-title { font-size: 4rem; line-height: 1; max-width: 800px; margin-bottom: 1.5rem; }
+        .blog-subtitle { font-size: 1.3rem; max-width: 700px; }
+
+        /* 2. Featured Post */
+        .featured-section { padding: 8rem 0; }
+        .featured-card {
+            display: flex; gap: 4rem; 
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+        .featured-img { width: 50%; height: 550px; }
+        .featured-content { width: 50%; padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .featured-content .meta { font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem; }
+        .featured-content h2 { font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; }
+        .featured-content p { font-size: 1.1rem; margin-bottom: 2rem; }
+
+        /* 3. Filters */
+        .filter-bar {
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            padding: 1.5rem 0;
+            margin-bottom: 4rem;
+        }
+        .category-filter {
+            display: flex; gap: 1rem;
+        }
+        .category-btn {
+            background: none; border: 1px solid var(--color-border); padding: 0.5rem 1.2rem;
+            border-radius: 40px; cursor: pointer; font-size: 0.9rem; font-weight: 500;
+            transition: var(--transition);
+        }
+        .category-btn:hover { background: var(--color-bg-accent); border-color: var(--color-bg-accent); }
+        .category-btn.active { background: var(--color-text-main); color: #fff; border-color: var(--color-text-main); }
+
+        /* 4. Article Grid */
+        .article-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+        }
+        .article-card {
+            display: flex; flex-direction: column;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 1.5rem;
+        }
+        .article-card:hover .article-img img { transform: scale(1.05); }
+
+        .article-img {
+            height: 250px; overflow: hidden; margin-bottom: 1.5rem;
+            border-radius: var(--border-radius-sm);
+        }
+        .article-img img { transition: var(--transition); }
+        .article-card .meta { font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+        .article-card h3 { font-size: 1.5rem; line-height: 1.3; margin-bottom: 0.8rem; }
+        .article-card p { font-size: 0.95rem; line-height: 1.5; color: var(--color-text-muted); flex-grow: 1; }
+        .article-card .read-more { margin-top: 1rem; }
+
+        /* --- FOOTER (Identical) --- */
+        footer {
+            background-color: #fff; padding-top: 6rem; position: relative; overflow: hidden; border-top: 1px solid #eee;
+        }
+        .footer-bg-text {
+            position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-heading); font-size: 15rem; color: rgba(0,0,0,0.02);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+            position: relative; z-index: 1; margin-bottom: 4rem;
+        }
+        .footer-col h4 {
+            font-family: var(--font-body); font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 1.5rem; font-weight: 600;
+        }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: var(--color-text-muted); font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--color-text-main); }
+        .credits { text-align: center; padding: 2rem; border-top: 1px solid #eee; color: #999; font-size: 0.9rem; position: relative; z-index: 1; }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .blog-title { font-size: 3rem; }
+            .featured-card { flex-direction: column; }
+            .featured-img, .featured-content { width: 100%; }
+            .featured-img { height: 300px; }
+            .featured-content { padding: 2rem; }
+            .featured-content h2 { font-size: 2rem; }
+            .category-filter { flex-wrap: wrap; }
+            .article-grid { grid-template-columns: 1fr 1fr; }
+            .article-img { height: 200px; }
+            .nav-menu { display: none; }
+        }
+        @media (max-width: 600px) {
+            .article-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">SCALEFY</a>
+            <nav class="nav-menu desktop-only">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="#" class="nav-link" style="border-bottom: 1px solid currentColor;">Blog</a>
+            </nav>
+            <a href="#" class="btn btn-dark">Get Started</a>
+        </div>
+    </header>
+
+    <section class="blog-hero">
+        <div class="container">
+            <span class="super-title">Insights</span>
+            <h1 class="blog-title">Data-driven perspectives on scaling, architecture, and growth.</h1>
+            <p class="blog-subtitle">Our in-house architects and strategists share their methodologies, case studies, and projections for the future of business.</p>
+        </div>
+    </section>
+
+    <section class="featured-section">
+        <div class="container">
+            <div class="featured-card">
+                <div class="featured-img">
+                    <img src="https://images.pexels.com/photos/9253334/pexels-photo-9253334.jpeg" alt="Featured Article Image">
+                </div>
+                <div class="featured-content">
+                    <div class="meta">Featured • Strategy • June 15, 2025</div>
+                    <h2>The Architect's Mindset: Why structure must precede rapid growth.</h2>
+                    <p>Many companies chase growth metrics without establishing a robust foundation. We break down the four critical structural pillars required to prevent systemic failure at scale.</p>
+                    <a href="#" class="text-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="filter-bar">
+        <div class="container">
+            <div class="category-filter">
+                <button class="category-btn active">All Topics</button>
+                <button class="category-btn">Strategy</button>
+                <button class="category-btn">Digital Architecture</button>
+                <button class="category-btn">UX/Design</button>
+                <button class="category-btn">Performance</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div class="article-grid">
+                
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg" alt="Article 1">
+                    </div>
+                    <div class="meta">Strategy • 12 min read</div>
+                    <h3>How to Conduct a Killer Competitive Audit in 3 Days</h3>
+                    <p>Stop guessing what your competitors are doing. Use this three-day framework to extract actionable insights and dominate your niche.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/162539/architecture-building-amsterdam-blue-sky-162539.jpeg" alt="Article 2">
+                    </div>
+                    <div class="meta">Digital Architecture • 8 min read</div>
+                    <h3>Choosing a Headless CMS: A Decision Matrix for Scale</h3>
+                    <p>We compare the leading content management systems and provide a matrix to help your team choose the right long-term solution.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/933964/pexels-photo-933964.jpeg" alt="Article 3">
+                    </div>
+                    <div class="meta">Performance • 6 min read</div>
+                    <h3>The Hidden Costs of Technical Debt on Long-Term Revenue</h3>
+                    <p>The unseen killer of growth: technical debt. Learn how to audit your systems and prioritize refactoring to save millions.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+                
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg" alt="Article 4">
+                    </div>
+                    <div class="meta">UX/Design • 10 min read</div>
+                    <h3>Five UX Principles from Modern Architecture</h3>
+                    <p>Applying principles of structural design and intentionality from architecture to improve your user experience workflows.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+                
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/2068664/pexels-photo-2068664.jpeg" alt="Article 5">
+                    </div>
+                    <div class="meta">Strategy • 7 min read</div>
+                    <h3>Scaling Team Culture: From 5 to 50 People</h3>
+                    <p>The cultural playbook you need to maintain clarity and alignment as your organization multiplies its workforce.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.pexels.com/photos/245240/pexels-photo-245240.jpeg" alt="Article 6">
+                    </div>
+                    <div class="meta">Performance • 5 min read</div>
+                    <h3>Maximizing LTV: The Forgotten Levers in Subscription Services</h3>
+                    <p>Beyond the acquisition, we look at the retention and engagement strategies that truly unlock the value of a subscriber.</p>
+                    <div class="read-more"><span class="text-link">Read More</span></div>
+                </a>
+
+            </div>
+
+            <div class="text-center" style="margin-top: 4rem;">
+                <a href="#" class="btn btn-dark">Load More Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bg-text">SCALEFY</div>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="display:block; margin-bottom: 1rem;">SCALEFY</a>
+                <p style="font-size: 0.9rem; max-width: 200px;">Building better businesses for a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Menu</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <ul class="footer-links">
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li>hello@scalefy.com</li>
+                    <li>+1 (555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="credits">
+            &copy; 2025 Scalefy Template. Designed by Lefa Mofokeng.
+        </div>
+    </footer>
+
+    <script>
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.8rem 0';
+                header.style.background = 'rgba(253, 251, 247, 0.95)';
+            } else {
+                header.style.padding = '1.2rem 0';
+                header.style.background = 'rgba(253, 251, 247, 0.8)';
+            }
+        });
+        
+        // Basic Category Filter (Visual Only)
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
